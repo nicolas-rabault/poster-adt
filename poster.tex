@@ -27,7 +27,7 @@
 
 
 % \vfill
-\Large
+\large
 \begin{multicols}{2}
 
 \blockabstract{
@@ -49,7 +49,15 @@ L'un des objectifs principaux du projet Poppy est de developper des briques tech
 Actuellement, l'architecture des creatures Poppy s'appuie sur l'utilisation de l'impression 3D pour la fabrication des pièces mécaniques, sur les actuateurs Robotis pour la motorisation et sur la library pypot (python) pour le contrôle.
 
 
-Le challenge pour l'évolution des créatures Poppy est de proposer une architecture totalement modulaire permettant de reconfigurer facilement n'importe quel type de robot. Nous voyons donc l'architecture de Poppy 2 comme un ensemble de modules interconnectés. Tout est module, que ce soit un senseur, un moteur, une batterie, le CPU etc... et doivent pouvoir communiquer entre eux. 
+Le challenge pour l'évolution des créatures Poppy est de proposer une architecture totalement modulaire permettant de reconfigurer facilement n'importe quel type de robot. Nous voyons donc l'architecture de Poppy 2 comme un ensemble de modules interconnectés. Tout est module, que ce soit un senseur, un moteur, une batterie, le CPU etc... et doivent pouvoir communiquer entre eux.
+
+Pour la réalisation de ce projet, plusieurs partenariats sont en cours:
+
+\begin{itemize}
+    \item \textbf{Génération Robots:} est un distributeur internationnal de produits robotiques. Ils nous accompagnent quotidiennement pour la
+    \item \textbf{Barbet Technology:} est une entreprise de conception et de fabrication de moteur CC brushless.
+    \item \textbf{Atmel:}
+\end{itemize}
 
 % (i.e. facilement ajouter des senseurs, moteurs, batteries etc...) ce qui n'est pas le cas actuellement. Aussi, une brique essentielle en robotique est la motorisation. Pour cela nous allons réaliser des actuateurs open source s'integrant dans cette architecture modulaire.
 
@@ -70,12 +78,12 @@ Nous travaillons sur la mise en place d'un form-factor mécanique unifié permet
     \item \textbf{Unité:} L'interface mécanique est définie à partir d'une unité = 12mm (nombre hautement composé).
     \item \textbf{Form factor:} Les modules sont des boites parallélépipédiques dont les dimensions sont uniquement des multiples entiers de l'unité. Le plus petit module fait donc 12x12x12mm (en rouge sur la figure ci-dessous).
     \begin{center}
-            \includegraphics[width=\columnwidth]{images/module_size.png}
+            \includegraphics[width=0.8\columnwidth]{images/module_size.png}
     \end{center}
     \item \textbf{Pattern de fixation:} Sur chaque face d'un module se répète un pattern identique quelque soit la taille du module. Plusieurs patterns sont encore à l'étude.
 \end{itemize}
 
-De plus, la standardisation mécanique permet d'envisager la generation automatique de pièce mécanique permettant de fixed n modules entre eux. Pour ces aspects, des discussions sont en cours avec Sylvain Lefevbre (Inria Nancy) autour de ShapeForge.
+De plus, la standardisation mécanique permet d'envisager la generation automatique de pièce mécanique permettant de fixer n modules entre eux. Pour ces aspects, des discussions sont en cours avec Sylvain Lefevbre (Inria Nancy) autour de ShapeForge.
 }
 
 
@@ -87,13 +95,14 @@ Le bus utilisé est un bus I2C ayant les propriétés suivantes:
 
 \begin{itemize}
     \item \textbf{Multi-master:} Tous les modules peuvent communiquer entre eux. Il n'est pas necessaire d'avoir une gestion des comportements centralisés. Il devient alors possible d'imaginer la création de comportements emergents résultants de la somme d'ensemble de comportements simple et locaux, des reflexes par exemple.
-    \item \textbf{Peu de fils:} Les cables sont l'un des éléments les moins fiables sur un robot. L'I2C nous permet de les minimiser en cablant l'ensemble du robot avec un réseau de 4 fils.  
-    \item \textbf{Rapide:} Avec la norme FastMode+, l'i2C pour être utilisé à 3,4Mbaud.
+    \item \textbf{Peu de fils:} Les cables sont l'un des éléments les moins fiables sur un robot. L'I2C nous permet de les minimiser en cablant l'ensemble du robot avec un réseau de 4 fils.
+    \item \textbf{Rapide:} Avec la norme high speed, l'i2C peut être utilisé à 3,4Mbaud.
+    \item \textbf{Souple:} L'aspect synchrone de l'I2C permet une compatibilité avec un grand nombe de système existant.
 \end{itemize}
 
-    \begin{center}
-        \includegraphics[width=0.7\columnwidth]{images/arch.png}
-    \end{center}
+    % \begin{center}
+    %     \includegraphics[width=0.7\columnwidth]{images/arch.png}
+    % \end{center}
 
 }
 
@@ -115,15 +124,12 @@ Comme pour la mécanique et la communication, les modules partagent une architec
 
 \block{Structure logiciel haut niveau}{
 
-Les modules doivent tous avoir une architecture logiciel unifié pour les rendres compatible :
+L'interface sera la première vision de l'architecture, ainsi il est très important de bien comprendre les besoins :
 \begin{itemize}
-    \item \textbf{Librairie multilangage :} La bibliothèque de controle de Poppy pourra être utiliser avec différents langages.
+    \item \textbf{Librairie multilangage :} La bibliothèque de controle de Poppy pourra être utilisé avec différents langages.
     \item \textbf{Programmation visuelle :} Poppy 2.0 sera compatible avec Snap.
-    \begin{center}
-        \includegraphics[width=0.4\columnwidth]{images/snap.png}
-    \end{center}
-    \item \textbf{Application web:} Un IDE sur le navigateur.
-    \item \textbf{Compatibilité avec Poppy 1:} tous les contenu pédagogique développer pour Poppy 1 restera compatible avec l'architecture Poppy 2.0.
+    \item \textbf{Application web :} Un IDE sur le navigateur.
+    \item \textbf{Compatibilité :} Tous les contenus pédagogique développé pour Poppy 1 resteront compatible avec l'architecture Poppy 2.0.
 \end{itemize}
 }
 
@@ -132,30 +138,31 @@ Les modules doivent tous avoir une architecture logiciel unifié pour les rendre
 
 Sur un robot, les actuateurs sont actuellement l'element limitant et limité, il s'agit pourtant d'un élément fondamental. L'utilisation de servo-moteurs Robotis très couteux est un frein pour la diffusion des créatures Poppy 1. Il est ainsi absolument critique de réussir à proposer une alternative à la fois open source, accessible et de très bonne qualité.
 
-Ces modules moteurs s'integreront dans l'architecture (mecanique, communication, logiciel) présentés précédement: 
+Ces modules moteurs s'integreront dans l'architecture (mecanique, communication, logiciel) présentés précédement:
 
 \begin{center}
-        \includegraphics[width=0.9\columnwidth]{images/module_moteur.png}
+        \includegraphics[width=0.6\columnwidth]{images/module_moteur.png}
 \end{center}
 
-D'un point de vue technique, ils s'inspirent des travaux du MIT sur l'"optimal Actuator" en proposant une transmission faible impédance et haute densité de couple, permettant un contrôle en force précis. 
+D'un point de vue technique, ils s'inspirent des travaux du MIT sur l'"optimal Actuator" en proposant une transmission faible impédance et haute densité de couple, permettant un contrôle en force précis.
 
 }
 
 \block{Planning}{
-
-}
-
-
-\block{Partenariat Industriel}{
-
-Pour la réalisation de ce projet, plusieurs partenariats sont en cours:
-
-\begin{itemize}
-    \item \textbf{Génération Robots:} est un distributeur internationnal de produits robotiques. Ils nous accompagnent quotidiennement pour la 
-    \item \textbf{Barbet Technology:} est une entreprise de conception et de fabrication de moteur CC brushless. 
-    \item \textbf{Atmel:} 
-\end{itemize}
+\begin{tabular}{|c|c|}
+    \hline
+        \textbf{jalon} & \textbf{date} \\
+    \hline
+        Définition des technologies et des besoins : & mai 2015 \\
+        Réalisation de la carte processeur : & aout 2015 \\
+        Test des API mécanique sur un cas concret : & octobre 2015 \\
+        Réalisation d'un prototype de moteur : & janvier 2016 \\
+        Test et validation d'une gamme de moteur : & avril 2016 \\
+        Création d'autres modules autour d'une application concrète : & juin 2016 \\
+        Dissémination de la technologie : & sept 2016 \\
+        transfert vers une structure : & sept 2016 \\
+    \hline
+\end{tabular}
 
 }
 
@@ -171,5 +178,5 @@ Pour la réalisation de ce projet, plusieurs partenariats sont en cours:
 % }
 
 \end{multicols}
-\vfill
+% \vfill
 \end{document}
