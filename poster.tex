@@ -31,7 +31,7 @@
 \large
 \begin{multicols}{2}
 \blockabstract{
-\textbf{Le projet Poppy 2 est un projet ADT Focus qui vise à unifier l'ensemble des éléments fonctionnels d'un robot (actionneurs, senseurs, logique/"intelligence") dans des modules qui partagent les mêmes interfaces mécaniques, un même bus de communication et une même API de programmation, permettant ainsi aux utilisateur de créer des robots modulaires sans se soucier de problématiques de compatibilité et d'interfaces entre différents éléments technologiques. Le projet doit être transférable vers une start-up/asso à la fin du projet ADT (sept 2016).
+\textbf{Le projet Poppy 2 est un projet ADT Focus qui vise à unifier l'ensemble des éléments fonctionnels d'un robot (actionneurs, senseurs, logique/"intelligence") dans des modules qui partagent les mêmes interfaces mécaniques, un même bus de communication et une même API de programmation, permettant ainsi aux utilisateur de créer des robots modulaires sans se soucier de problématiques de compatibilité et d'interfaces entre différents éléments technologiques. Le projet doit être transférable vers une start-up/association à la fin du projet ADT (sept 2016).
 }
 }
 
@@ -56,7 +56,7 @@ Pour la réalisation de ce projet, plusieurs partenariats sont en cours:
 \begin{itemize}
     \item \textbf{Génération Robots:} Distributeur international de produits robotiques.
     \item \textbf{Barbet Technology:} Conception et de fabrication de moteur CC brushless.
-    \item \textbf{Atmel:} Fondeur de microcontrolleur 8/16bits et Arm.
+    \item \textbf{Atmel:} Fondeur de microcontrolleur 8/16bits et ARM.
 \end{itemize}
 
 % (i.e. facilement ajouter des senseurs, moteurs, batteries...) ce qui n'est pas le cas actuellement. Aussi, une brique essentielle en robotique est la motorisation. Pour cela nous allons réaliser des actuateurs open source s'intégrant dans cette architecture modulaire.
@@ -98,8 +98,8 @@ Le bus utilisé est un bus I2C ayant les propriétés suivantes:
 \begin{itemize}
     \item \textbf{Multi-master:} Tous les modules peuvent communiquer entre eux. Il n'est pas nécessaire d'avoir une gestion des comportements centralisés. Il devient alors possible d'imaginer la création de comportements émergents résultants de la somme d'ensemble de comportements simple et locaux, des reflexes par exemple.
     \item \textbf{Peu de fils:} Les câbles sont l'un des éléments les moins fiables sur un robot. L'I2C nous permet de les minimiser en câblant l'ensemble du robot avec un réseau de 4 fils.
-    \item \textbf{Rapide:} Avec la norme high speed, l'i2C peut être utilisé à 3,4Mbaud.
-    \item \textbf{Souple:} L'aspect synchrone de l'I2C permet une compatibilité avec un grand nombre de système existant.
+    \item \textbf{Rapide:} Avec la norme high speed, l'I2C peut être utilisé à 3,4Mbaud.
+    \item \textbf{Standard:} Compatibilité avec un grand nombre de système existant.
 \end{itemize}
 
     % \begin{center}
@@ -116,22 +116,24 @@ Comme pour la mécanique et la communication, les modules partagent une architec
     \item \textbf{Bootloader:} La gestion de l'adressage dynamique et du démarrage sera inspiré du bootloader Arduino afin de garder la compatibilité avec cet environnement.
     \item \textbf{Communication:} Une bibliothèque permettra de simplifier la communication entre les modules et sera accessible à tous les développeurs.
     \item \textbf{Application:} Chaque module peut avoir sa propre application unique pour cela un espace de code dédié au module et au programme utilisateur sera alloué.
-    % \vspace{1cm}
-    \begin{tabular}{cc}
-        \includegraphics[width=0.45\columnwidth]{images/modul_arch.jpg} &
-        \includegraphics[width=0.45\columnwidth]{images/splitter_arch.jpg}
-    \end{tabular}
 \end{itemize}
+
+% \vspace{0.5cm}
+\begin{center}%{cc}
+    \includegraphics[height=13cm]{images/modul_arch.jpg}  \hspace{1cm}
+    \includegraphics[height=13cm]{images/splitter_arch.jpg}
+\end{center}
+
 }
 
 \block{Structure logiciel haut niveau} {
 
-L'interface sera la première vision de l'architecture, ainsi il est très important de bien comprendre les besoins :
+L'interface sera la première vision de l'architecture, ainsi il est très important de bien comprendre les besoins:
 \begin{itemize}
     \item \textbf{Librairie multi langage :} La bibliothèque de contrôle de Poppy pourra être utilisé avec différents langages.
-    \item \textbf{Programmation visuelle :} Poppy 2.0 sera compatible avec Snap.
+    \item \textbf{Programmation visuelle :} Poppy 2 sera compatible avec Snap!.
     \item \textbf{Application web :} Un IDE sur le navigateur.
-    \item \textbf{Compatibilité :} Tous les contenus pédagogiques développés pour Poppy 1 resteront compatibles avec l'architecture Poppy 2.0.
+    \item \textbf{Compatibilité :} Tous les contenus pédagogiques développés pour Poppy 1 resteront compatibles avec l'architecture Poppy 2.
 \end{itemize}
 }
 
